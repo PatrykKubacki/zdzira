@@ -1,0 +1,13 @@
+<h1>Projekty</h1>
+<h4>Tyle jest projektów: {{projectsNames().length}}</h4>
+
+@if(projectsNames().length === 0) {
+    <span>Nie ma żadnych projektów!</span>
+} @else {
+    <ul>
+    @for(project of projectsNames(); track project.name) {
+        <app-projects-list-item [(projectsNames)]="projectsNames"
+                                [currentProject]="project"></app-projects-list-item>
+    }
+    </ul>
+}

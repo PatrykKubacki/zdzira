@@ -1,0 +1,23 @@
+<li>
+    @if(isEditMode()) {
+        <input [(ngModel)]="newName"/>
+        <button class="margin-left-button"
+                (click)="save()">
+            Zapisz
+        </button>
+        <button class="margin-left-button"
+                (click)="cancel()" >
+            Anuluj
+        </button>
+    } @else {
+        <span>{{currentProject()?.name}}</span>
+        <button class="margin-left-button"
+                (click)="edit()">
+            Edytuj
+        </button>
+        <button class="margin-left-button"
+                (click)="remove()" >
+                Usuń
+        </button>
+    }
+</li>

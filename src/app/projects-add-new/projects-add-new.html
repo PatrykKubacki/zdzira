@@ -1,0 +1,9 @@
+<div>
+    <label>
+        Nazwa nowego projektu: 
+    </label>
+    <input [(ngModel)]="projectName"/> 
+    <button class="margin-left-button" (click)="addNewProject(projectName())">
+        Dodaj nowy projekt
+    </button>
+</div>
