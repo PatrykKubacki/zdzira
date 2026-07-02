@@ -1,6 +1,6 @@
 import { Component, model } from '@angular/core';
 import { ProjectsListItem } from '../projects-list-item/projects-list-item';
-import { Project } from '../app';
+import { Project } from '../../../models/project';
 
 @Component({
   selector: 'app-projects-list',

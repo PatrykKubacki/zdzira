@@ -1,6 +1,6 @@
 import { Component, input, model, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Project } from '../app';
+import { Project } from '../../../models/project';
 
 @Component({
   selector: 'app-projects-list-item',

@@ -1,7 +1,9 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { ProjectsList } from './projects-list/projects-list';
-import { ProjectsAddNew } from './projects-add-new/projects-add-new';
+import { ProjectsList } from './features/projects/projects-list/projects-list';
+import { ProjectsAddNew } from './features/projects/projects-add-new/projects-add-new';
+import { Project, ProjectType } from './models/project';
+import { Task } from './models/task';
 
 @Component({
   selector: 'app-root',
@@ -14,22 +16,6 @@ export class App {
   protected readonly title = signal('zdzira.UI');
 }
 
-export type Project = {
-  id: number,
-  name: string,
-  description: string,
-  isPrivate: boolean,
-  owner: string,
-  key:string,
-  projectType: ProjectType
-}
-
-export enum ProjectType {
-  Software = "Software",
-  Business = "Business",
-  ServiceManagement = "ServiceManagement"
-}
-
 const startStateProjects: Project[] = [
   { 
     id: 1,
@@ -38,7 +24,8 @@ const startStateProjects: Project[] = [
     isPrivate: false,
     owner: "Mareczek Zawleczek",
     key: "PRO-1",
-    projectType: ProjectType.Software
+    projectType: ProjectType.Software,
+    tasks:[],
   },
   { 
     id: 2,
@@ -47,6 +34,7 @@ const startStateProjects: Project[] = [
     isPrivate: false,
     owner: "Jakub Jakubowski",
     key: "PRO-2",
-    projectType: ProjectType.Business
+    projectType: ProjectType.Business,
+    tasks:[],
   },
 ]
