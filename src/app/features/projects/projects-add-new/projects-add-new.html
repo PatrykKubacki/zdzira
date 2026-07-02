@@ -1,9 +1,61 @@
-<div>
+<h2>Dodaj nowy projekt</h2>
+<form (submit)="onSubmit($event)">
+<div class="row">
     <label>
-        Nazwa nowego projektu: 
+        Nazwa projektu: 
     </label>
-    <input [(ngModel)]="projectName"/> 
-    <button class="margin-left-button" (click)="addNewProject(projectName())">
-        Dodaj nowy projekt
-    </button>
+    <input [formField]="newProjectForm.name"/>
 </div>
+<div class="row">
+        @if (newProjectForm.name().touched() && newProjectForm.name().invalid()) {
+      <ul class="error-list">
+        @for (error of newProjectForm.name().errors(); track error) {
+          <li>{{ error.message }}</li>
+        }
+      </ul>
+    }
+</div>
+<div class="row">
+    <label>
+        Opis projektu: 
+    </label>
+    <textarea [formField]="newProjectForm.description" rows="2"></textarea>
+</div>
+<div class="row">
+    <label>
+        Czy prywatny projekt: 
+    </label>
+    <input [formField]="newProjectForm.isPrivate" type="checkbox"/>
+</div>
+<div class="row">
+    <label>
+        Właściciel projektu: 
+    </label>
+    <input [formField]="newProjectForm.owner"/>
+</div>
+<div class="row">
+        @if (newProjectForm.owner().touched() && newProjectForm.owner().invalid()) {
+      <ul class="error-list">
+        @for (error of newProjectForm.owner().errors(); track error) {
+          <li>{{ error.message }}</li>
+        }
+      </ul>
+    }
+</div>
+<div class="row">
+    <label>
+        Typ projektu: 
+    </label>
+    <select [formField]="newProjectForm.projectType">
+        <option value="Software">Software</option>
+        <option value="Business">Business</option>
+        <option value="ServiceManagement">Service Management</option>
+    </select>
+</div>
+<button type="submit">
+    Dodaj nowy projekt
+</button>
+<button (click)="clearForm()" class="button">
+    Wyczyść formularz
+</button>
+</form>

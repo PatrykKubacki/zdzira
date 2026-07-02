@@ -3,11 +3,11 @@ import { RouterOutlet } from '@angular/router';
 import { ProjectsList } from './features/projects/projects-list/projects-list';
 import { ProjectsAddNew } from './features/projects/projects-add-new/projects-add-new';
 import { Project, ProjectType } from './models/project';
-import { Task } from './models/task';
+import { TasksAddNew } from './features/tasks/tasks-add-new/tasks-add-new';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, ProjectsList, ProjectsAddNew],
+  imports: [RouterOutlet, ProjectsList, ProjectsAddNew, TasksAddNew],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

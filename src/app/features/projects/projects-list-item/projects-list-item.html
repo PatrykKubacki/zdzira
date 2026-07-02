@@ -1,23 +1,28 @@
 <li>
     @if(isEditMode()) {
-        <input [(ngModel)]="newName"/>
-        <button class="margin-left-button"
-                (click)="save()">
-            Zapisz
-        </button>
-        <button class="margin-left-button"
-                (click)="cancel()" >
-            Anuluj
-        </button>
+        <div>
+            <input [(ngModel)]="newName"/>
+            <button class="margin-left-button"
+                    (click)="save()">
+                Zapisz
+            </button>
+            <button class="margin-left-button"
+                    (click)="cancel()" >
+                Anuluj
+            </button>
+        </div>
     } @else {
-        <span>{{currentProject()?.name}}</span>
-        <button class="margin-left-button"
-                (click)="edit()">
-            Edytuj
-        </button>
-        <button class="margin-left-button"
-                (click)="remove()" >
-                Usuń
-        </button>
+        <div>
+            <span>{{currentProject()?.name}}</span>
+            <span class="task-count">(Ten projekt ma: {{currentProject()?.tasks?.length}} zadań)</span>
+            <button class="margin-left-button"
+                    (click)="edit()">
+                Edytuj
+            </button>
+            <button class="margin-left-button"
+                    (click)="remove()" >
+                    Usuń
+            </button>
+        </div>
     }
 </li>

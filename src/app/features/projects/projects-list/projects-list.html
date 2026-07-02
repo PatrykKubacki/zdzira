@@ -5,9 +5,9 @@
     <span>Nie ma żadnych projektów!</span>
 } @else {
     <ul>
-    @for(project of projectsNames(); track project.name) {
+    @for(project of projectsNames(); track project.id) {
         <app-projects-list-item [(projectsNames)]="projectsNames"
-                                [currentProject]="project"></app-projects-list-item>
+                                [currentProject]="project"/>
     }
     </ul>
 }

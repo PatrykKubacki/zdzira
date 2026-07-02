@@ -1,24 +1,42 @@
-import { Component, model } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, model, signal } from '@angular/core';
 import { Project, ProjectType } from '../../../models/project';
+import { debounce, form, FormField, required } from '@angular/forms/signals';
 
 @Component({
   selector: 'app-projects-add-new',
-  imports: [FormsModule],
+  imports: [FormField],
   templateUrl: './projects-add-new.html',
   styleUrl: './projects-add-new.css',
 })
 export class ProjectsAddNew {
   projectsNames = model<Project[]>([])
-  projectName = model<string>('')
+  project = signal<Project>({id: 0, name: '', description: '', isPrivate: false, owner: '', projectType: ProjectType.Software, key: '', tasks:[]})
+  newProjectForm = form(this.project, (schemaPath) => {
+    required(schemaPath.name, {message: 'Nazwa projektu jest wymagana'});
+    required(schemaPath.owner, {message: 'Właściciel projektu jest wymagany'});
+  });
 
-  addNewProject(name: string){
-    if(name !== '') {
+  onSubmit(event: Event) {
+      event.preventDefault();
       const ids = this.projectsNames().map(x => x.id)
       const newId = Math.max(...ids) + 1 
-      const newProject: Project = {id: newId, name: name, description: '', isPrivate: false, owner: 'Patryczek Pstryczek', projectType: ProjectType.Software, key: `PRO-${newId}`, tasks:[]}
+      const newProject: Project = {
+        id: newId, 
+        name: this.newProjectForm.name().value(), 
+        description: this.newProjectForm.description().value(), 
+        isPrivate: this.newProjectForm.isPrivate().value(),
+         owner: this.newProjectForm.owner().value(), 
+         projectType: this.newProjectForm.projectType().value(), 
+         key: `PRO-${newId}`, 
+         tasks:[]
+        }
       this.projectsNames.update(x => [...x, newProject])
-      this.projectName.set('')
-    }
+      this.project.set({id: 0, name: '', description: '', isPrivate: false, owner: '', projectType: ProjectType.Software, key: '', tasks:[]})
+      this.newProjectForm().reset();
+  }
+
+  clearForm() {
+    this.project.set({id: 0, name: '', description: '', isPrivate: false, owner: '', projectType: ProjectType.Software, key: '', tasks:[]})
+    this.newProjectForm().reset();
   }
 }
