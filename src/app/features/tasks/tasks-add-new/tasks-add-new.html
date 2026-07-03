@@ -2,35 +2,6 @@
 <form (submit)="onSubmit($event)">
     <div class="row">
         <label>
-            Identyfikator projektu: 
-        </label>
-        <select [formField]="taskForm.projectId">
-            @for (project of projectsNames(); track project) {
-                <option [value]="project.id">{{ project.name }}</option>
-            }
-        </select>
-    </div>
-        @if (taskForm.projectId().touched() && taskForm.projectId().invalid()) {
-        <div class="row">
-          <ul class="error-list">
-            @for (error of taskForm.projectId().errors(); track error) {
-              <li>{{ error.message }}</li>
-            }
-          </ul>
-        </div>
-    }
-    <div class="row">
-        <label>
-            Priorytet zadania:
-        </label>
-        <select [formField]="taskForm.priority">
-            <option value="Low">Niski</option>
-            <option value="Medium">Średni</option>
-            <option value="High">Wysoki</option>
-        </select>
-    </div>
-    <div class="row">
-        <label>
             Nazwa zadania: 
         </label>
         <input [formField]="taskForm.name"/>

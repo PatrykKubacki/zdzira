@@ -1,0 +1,18 @@
+@if(tasks().length === 0) {
+  <p>Brak zadań do wyświetlenia.</p>
+} @else {
+  <h1>Lista zadań</h1>
+    @for(task of tasks(); track task.id) {
+        <div>
+            <h2>{{ task.name }}</h2> 
+            <p><b>Opis zadania: </b>{{ task.description }}</p>
+            <p><b>Priorytet: </b>{{ task.priority }}</p>
+            <p><b>Status: </b>{{ task.isCompleted ? 'Zakończone' : 'W trakcie' }}</p>
+            <p><b>Data utworzenia: </b>{{ task.creationDate }}</p>
+            <p><b>Data wykonania: </b>{{ task.dueDate }}</p>
+            <p><b>Utworzony przez: </b>{{ task.creatorName }}</p>
+        </div>
+    }
+}
+
+<button (click)="goBack()">Wróć do szczegółów projektu</button>

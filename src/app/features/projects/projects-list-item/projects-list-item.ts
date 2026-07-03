@@ -1,6 +1,8 @@
-import { Component, input, model, signal } from '@angular/core';
+import { Component, inject, input, model, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Project } from '../../../models/project';
+import { ProjectService } from '../../../core/services/projectService';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-projects-list-item',
@@ -9,7 +11,10 @@ import { Project } from '../../../models/project';
   styleUrl: './projects-list-item.css',
 })
 export class ProjectsListItem {
-    projectsNames = model<Project[]>([]);
+    private router = inject(Router);
+    private store = inject(ProjectService);
+    readonly projectsNames = this.store.projects;
+    
     currentProject = input<Project | null>(null);
     newName = signal<string>('');
     isEditMode = signal<boolean>(false)
@@ -42,5 +47,9 @@ export class ProjectsListItem {
         const newProjectsNames = this.projectsNames().filter(x => x.name !== name)
         this.projectsNames.set(newProjectsNames);
       }
+    }
+
+    details (id: number) {
+      this.router.navigate(['/projects', id]);
     }
 }

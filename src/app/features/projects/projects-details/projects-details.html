@@ -1,0 +1,21 @@
+@if(project === undefined) {
+  <p>Nie ma takiego projektu.</p>
+}
+@else {
+    <h1>Szczegóły projektu</h1>
+    <h2>{{ project.name }}</h2>
+    <p><b>Klucz: </b>{{ project.key }}</p>
+    <p><b>Opis projektu: </b>{{ project.description }}</p>
+    <p><b>Czy projekt jest prywatny: </b>{{ project.isPrivate ? 'Tak' : 'Nie' }}</p>
+    <p><b>Właściciel: </b>{{ project.owner }}</p>
+    <p><b>Typ projektu: </b>{{ project.projectType }}</p>
+    <p><b>Liczba zadań: </b>{{ project.tasks?.length }}</p>
+    <ul>
+      @for (task of project.tasks; track task) {
+        <li>{{ task.name }} - {{ task.description }}</li>
+      }
+    </ul>
+    <button (click)="goToTasks() " class="margin-button">Przejdź do listy zadań</button>
+    <button (click)="goBack()" class="margin-button">Powrót do listy projektów</button>
+}
+  

@@ -1,6 +1,6 @@
-import { Component, model } from '@angular/core';
+import { Component, inject, model } from '@angular/core';
 import { ProjectsListItem } from '../projects-list-item/projects-list-item';
-import { Project } from '../../../models/project';
+import { ProjectService } from '../../../core/services/projectService';
 
 @Component({
   selector: 'app-projects-list',
@@ -9,5 +9,7 @@ import { Project } from '../../../models/project';
   styleUrl: './projects-list.css',
 })
 export class ProjectsList {
-  projectsNames = model<Project[]>([]);
+  private store = inject(ProjectService);
+  readonly projects = this.store.projects;
+  readonly projectsCount = this.store.projectsCount;
 }

@@ -1,6 +1,7 @@
-import { Component, model, signal } from '@angular/core';
+import { Component, inject, model, signal } from '@angular/core';
 import { Project, ProjectType } from '../../../models/project';
-import { debounce, form, FormField, required } from '@angular/forms/signals';
+import { form, FormField, required } from '@angular/forms/signals';
+import { ProjectService } from '../../../core/services/projectService';
 
 @Component({
   selector: 'app-projects-add-new',
@@ -9,7 +10,9 @@ import { debounce, form, FormField, required } from '@angular/forms/signals';
   styleUrl: './projects-add-new.css',
 })
 export class ProjectsAddNew {
-  projectsNames = model<Project[]>([])
+  private store = inject(ProjectService);
+  readonly projectsNames = this.store.projects;
+  
   project = signal<Project>({id: 0, name: '', description: '', isPrivate: false, owner: '', projectType: ProjectType.Software, key: '', tasks:[]})
   newProjectForm = form(this.project, (schemaPath) => {
     required(schemaPath.name, {message: 'Nazwa projektu jest wymagana'});

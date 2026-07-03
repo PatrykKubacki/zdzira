@@ -1,9 +1,8 @@
-import { Component, model, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { Task, TaskPriority } from '../../../models/task';
 import { form, FormField, required } from '@angular/forms/signals';
-import { Project } from '../../../models/project';
-
-type TaskForm = {projectId: string} & Task;
+import { ProjectService } from '../../../core/services/projectService';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-tasks-add-new',
@@ -12,18 +11,27 @@ type TaskForm = {projectId: string} & Task;
   styleUrl: './tasks-add-new.css',
 })
 export class TasksAddNew {
-  projectsNames = model<Project[]>([])
-  task = signal<TaskForm>({projectId: '0', id: 0, name: '', description: '', isCompleted: false, creationDate: new Date(), dueDate: new Date(), priority: TaskPriority.Low, creatorName: ''})
+  private activatedRoute = inject(ActivatedRoute);
+  private projectId = signal('');
+  private store = inject(ProjectService);
+  readonly projectsNames = this.store.projects;
+  task = signal<Task>({id: 0, name: '', description: '', isCompleted: false, creationDate: new Date(), dueDate: new Date(), priority: TaskPriority.Low, creatorName: ''})
   taskForm = form(this.task, (schemaPath) => {
-    required(schemaPath.projectId, {message: 'Projekt jest wymagany'});
     required(schemaPath.name, {message: 'Nazwa zadania jest wymagana'});
     required(schemaPath.creatorName, {message: 'Twórca zadania jest wymagany'});
   })
 
+    constructor() {
+    this.activatedRoute.params.subscribe((params) => {
+      this.projectId.set(params['id']);
+    });
+  }
+
   onSubmit(event: Event) {
     event.preventDefault();
+    debugger;
     const projects = this.projectsNames();
-    const index = projects.findIndex(p => p.id.toString() === this.taskForm.projectId().value())
+    const index = projects.findIndex(p => p.id.toString() === this.projectId())
     const project = projects[index];
     const tasksIds = project.tasks.map(t => t.id)
     const newId = tasksIds.length > 0 ? Math.max(...tasksIds) + 1 : 1
@@ -37,22 +45,14 @@ export class TasksAddNew {
       priority: this.taskForm.priority().value(), 
       creatorName: this.taskForm.creatorName().value()
       }
-      this.projectsNames.update(projects =>
-      projects.map(project =>
-        project.id.toString() === this.taskForm.projectId().value()
-          ? {
-              ...project,
-              tasks: [...project.tasks, newTask],
-            }
-          : project
-      )
-    );
-    this.task.set({projectId: '0', id: 0, name: '', description: '', isCompleted: false, creationDate: new Date(), dueDate: new Date(), priority: TaskPriority.Low, creatorName: ''})
+
+    this.store.addTask(project.id, newTask);
+    this.task.set({id: 0, name: '', description: '', isCompleted: false, creationDate: new Date(), dueDate: new Date(), priority: TaskPriority.Low, creatorName: ''})
     this.taskForm().reset();
   }
 
   onClearForm() {
-    this.task.set({projectId: '0', id: 0, name: '', description: '', isCompleted: false, creationDate: new Date(), dueDate: new Date(), priority: TaskPriority.Low, creatorName: ''})
+    this.task.set({id: 0, name: '', description: '', isCompleted: false, creationDate: new Date(), dueDate: new Date(), priority: TaskPriority.Low, creatorName: ''})
     this.taskForm().reset();
   }
 }

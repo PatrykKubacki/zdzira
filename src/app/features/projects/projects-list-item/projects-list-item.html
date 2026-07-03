@@ -18,6 +18,10 @@
             <button class="margin-left-button"
                     (click)="edit()">
                 Edytuj
+            </button> 
+            <button class="margin-left-button"
+                    (click)="details(currentProject()?.id ?? 0)" >
+                Szczegóły
             </button>
             <button class="margin-left-button"
                     (click)="remove()" >
