@@ -1,18 +1,26 @@
 @if(tasks().length === 0) {
-  <p>Brak zadań do wyświetlenia.</p>
+<p>Brak zadań do wyświetlenia.</p>
 } @else {
-  <h1>Lista zadań</h1>
-    @for(task of tasks(); track task.id) {
-        <div>
-            <h2>{{ task.name }}</h2> 
-            <p><b>Opis zadania: </b>{{ task.description }}</p>
-            <p><b>Priorytet: </b>{{ task.priority }}</p>
-            <p><b>Status: </b>{{ task.isCompleted ? 'Zakończone' : 'W trakcie' }}</p>
-            <p><b>Data utworzenia: </b>{{ task.creationDate }}</p>
-            <p><b>Data wykonania: </b>{{ task.dueDate }}</p>
-            <p><b>Utworzony przez: </b>{{ task.creatorName }}</p>
-        </div>
-    }
+<h1>Lista zadań</h1>
+@for(task of tasks(); track task.id) {
+<mat-card class="task-card" appearance="outlined">
+  <mat-card-header>
+    <mat-card-title>{{ task.name }}</mat-card-title>
+    <mat-card-subtitle>Utworzony przez: {{ task.creatorName }}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <p><b>Opis zadania: </b>{{ task.description }}</p>
+    <p><b>Priorytet: </b>{{ task.priority }}</p>
+    <p><b>Status: </b>{{ task.isCompleted ? 'Zakończone' : 'W trakcie' }}</p>
+    <p><b>Data utworzenia: </b>{{ task.creationDate.toDateString() }}</p>
+    <p><b>Data wykonania: </b>{{ task.dueDate.toDateString() }}</p>
+  </mat-card-content>
+  <mat-card-actions>
+    <button matButton>usuń</button>
+  </mat-card-actions>
+</mat-card>
+}
 }
 
-<button (click)="goBack()">Wróć do szczegółów projektu</button>
+
+<button (click)="goBack()" matButton="tonal">Wróć do szczegółów projektu</button>

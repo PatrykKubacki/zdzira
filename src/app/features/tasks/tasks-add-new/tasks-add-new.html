@@ -1,73 +1,60 @@
 <h2>Dodaj nowe zadanie</h2>
 <form (submit)="onSubmit($event)">
-    <div class="row">
-        <label>
-            Nazwa zadania: 
-        </label>
-        <input [formField]="taskForm.name"/>
-    </div>
-    @if (taskForm.name().touched() && taskForm.name().invalid()) {
-        <div class="row">
-          <ul class="error-list">
-            @for (error of taskForm.name().errors(); track error) {
-              <li>{{ error.message }}</li>
-            }
-          </ul>
-        </div>
-    }
-    <div class="row">
-        <label>
-            Opis zadania: 
-        </label>
-        <textarea [formField]="taskForm.description" rows="2"></textarea>
-    </div>
-    <div class="row">
-        <label>
-            Czy zakończone: 
-        </label>
-        <input [formField]="taskForm.isCompleted" type="checkbox"/>
-    </div>
-    <div class="row">
-        <label>
-            Data utworzenia: 
-        </label>
-        <input [formField]="taskForm.creationDate" type="date"/>
-    </div>
-    <div class="row">
-        <label>
-            Data zakończenia: 
-        </label>
-        <input [formField]="taskForm.dueDate" type="date"/>
-    </div>
-    <div class="row">
-        <label>
-            Priorytet zadania:
-        </label>
-        <select [formField]="taskForm.priority">
-            <option value="Low">Niski</option>
-            <option value="Medium">Średni</option>
-            <option value="High">Wysoki</option>
-        </select>
-    </div>
-    <div class="row">
-        <label>
-            Twórca zadania:
-        </label>
-        <input [formField]="taskForm.creatorName"/>
-    </div>
-        @if (taskForm.creatorName().touched() && taskForm.creatorName().invalid()) {
-        <div class="row">
-          <ul class="error-list">
-            @for (error of taskForm.creatorName().errors(); track error) {
-              <li>{{ error.message }}</li>
-            }
-          </ul>
-        </div>
-    }
-    <button type="submit">
+    <mat-form-field class="row textarea-field">
+        <mat-label>Nazwa zadania </mat-label>
+        <input matInput [formField]="taskForm.name">
+        @if (taskForm.name().touched() && taskForm.name().invalid() && taskForm.name().errors().length > 0) {
+        <mat-error><strong> {{taskForm.name().errors()[0].message }}</strong></mat-error>
+        }
+    </mat-form-field>
+
+    <mat-form-field class="row textarea-field">
+        <mat-label>Opis projektu </mat-label>
+        <textarea matInput [formField]="taskForm.description" rows="2"></textarea>
+    </mat-form-field>
+
+    <mat-checkbox [formField]="taskForm.isCompleted">
+        Czy zakończone
+    </mat-checkbox>
+
+    <mat-form-field class="row textarea-field">
+        <mat-label>Data utworzenia</mat-label>
+        <input matInput [matDatepicker]="picker2" [formField]="taskForm.creationDate">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field class="row textarea-field">
+        <mat-label>Data zakończenia</mat-label>
+        <input matInput [matDatepicker]="picker" [formField]="taskForm.dueDate">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field class="row select-field">
+        <mat-label>Priorytet zadania</mat-label>
+        <mat-select [formField]="taskForm.priority">
+            <mat-option value="Low">Niski</mat-option>
+            <mat-option value="Medium">Średni</mat-option>
+            <mat-option value="High">Wysoki</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="row textarea-field">
+        <mat-label>Twórca zadania </mat-label>
+        <input matInput [formField]="taskForm.creatorName">
+        @if (taskForm.creatorName().touched() && taskForm.creatorName().invalid() &&
+        taskForm.creatorName().errors().length > 0) {
+        <mat-error><strong> {{taskForm.creatorName().errors()[0].message }}</strong></mat-error>
+        }
+    </mat-form-field>
+
+    <button type="submit" matButton="tonal">
         Dodaj nowe zadanie
     </button>
-    <button (click)="onClearForm()" class="button">
+    <button (click)="onClearForm()" class="button" matButton="tonal">
         Wyczyść formularz
     </button>
 </form>

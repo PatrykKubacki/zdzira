@@ -1,61 +1,44 @@
 <h2>Dodaj nowy projekt</h2>
 <form (submit)="onSubmit($event)">
-<div class="row">
-    <label>
-        Nazwa projektu: 
-    </label>
-    <input [formField]="newProjectForm.name"/>
-</div>
-<div class="row">
-        @if (newProjectForm.name().touched() && newProjectForm.name().invalid()) {
-      <ul class="error-list">
-        @for (error of newProjectForm.name().errors(); track error) {
-          <li>{{ error.message }}</li>
-        }
-      </ul>
+  <mat-form-field class="row textarea-field">
+    <mat-label>Nazwa projektu </mat-label>
+    <input matInput [formField]="newProjectForm.name">
+    @if (newProjectForm.name().touched() && newProjectForm.name().invalid() && newProjectForm.name().errors().length >
+    0) {
+    <mat-error><strong> {{newProjectForm.name().errors()[0].message }}</strong></mat-error>
     }
-</div>
-<div class="row">
-    <label>
-        Opis projektu: 
-    </label>
-    <textarea [formField]="newProjectForm.description" rows="2"></textarea>
-</div>
-<div class="row">
-    <label>
-        Czy prywatny projekt: 
-    </label>
-    <input [formField]="newProjectForm.isPrivate" type="checkbox"/>
-</div>
-<div class="row">
-    <label>
-        Właściciel projektu: 
-    </label>
-    <input [formField]="newProjectForm.owner"/>
-</div>
-<div class="row">
-        @if (newProjectForm.owner().touched() && newProjectForm.owner().invalid()) {
-      <ul class="error-list">
-        @for (error of newProjectForm.owner().errors(); track error) {
-          <li>{{ error.message }}</li>
-        }
-      </ul>
+  </mat-form-field>
+
+  <mat-form-field class="row textarea-field">
+    <mat-label>Opis projektu </mat-label>
+    <textarea matInput [formField]="newProjectForm.description" rows="3"></textarea>
+  </mat-form-field>
+
+  <mat-checkbox [formField]="newProjectForm.isPrivate">
+    Czy prywatny projekt
+  </mat-checkbox>
+
+  <mat-form-field class="row textarea-field">
+    <mat-label>Właściciel projektu </mat-label>
+    <input matInput [formField]="newProjectForm.owner">
+    @if (newProjectForm.owner().touched() && newProjectForm.owner().invalid() && newProjectForm.owner().errors().length
+    > 0) {
+    <mat-error><strong> {{newProjectForm.owner().errors()[0].message }}</strong></mat-error>
     }
-</div>
-<div class="row">
-    <label>
-        Typ projektu: 
-    </label>
-    <select [formField]="newProjectForm.projectType">
-        <option value="Software">Software</option>
-        <option value="Business">Business</option>
-        <option value="ServiceManagement">Service Management</option>
-    </select>
-</div>
-<button type="submit">
+  </mat-form-field>
+
+  <mat-form-field class="row select-field">
+    <mat-label>Typ projektu</mat-label>
+    <mat-select [formField]="newProjectForm.projectType">
+      <mat-option value="Software">Software</mat-option>
+      <mat-option value="Business">Business</mat-option>
+      <mat-option value="ServiceManagement">Service Management</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button type="submit" matButton="tonal">
     Dodaj nowy projekt
-</button>
-<button (click)="clearForm()" class="button">
+  </button>
+  <button (click)="clearForm()" class="button" type="reset" matButton="outlined">
     Wyczyść formularz
-</button>
+  </button>
 </form>

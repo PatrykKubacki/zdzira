@@ -1,12 +1,18 @@
 .row {
     margin-bottom: 8px;
     margin-top: 8px;
-}
+} 
 
 .button {
     margin-left: 8px;
 }
 
-.error-list {
-    color:red;
+.select-field {
+    display: block;
+    width: 30%;
+}
+
+.textarea-field {
+    display: block;
+    width: 30%;
 }

@@ -8,5 +8,10 @@
 }
 
 .error-list {
-    color:red;
+    color: red;
+}
+
+.textarea-field {
+    display: block;
+    width: 30%;
 }

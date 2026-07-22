@@ -1,10 +1,12 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { ProjectService } from '../../../core/services/projectService';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-tasks-list',
-  imports: [],
+  imports: [MatButtonModule, MatCardModule],
   templateUrl: './tasks-list.html',
   styleUrl: './tasks-list.css',
 })

@@ -2,10 +2,11 @@ import { Component, inject, signal } from '@angular/core';
 import { ProjectService } from '../../../core/services/projectService';
 import { Project } from '../../../models/project';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-projects-details',
-  imports: [],
+  imports: [MatButtonModule],
   templateUrl: './projects-details.html',
   styleUrl: './projects-details.css',
 })
@@ -24,10 +25,10 @@ export class ProjectsDetails {
   }
 
   goBack() {
-     this.router.navigate(['/projects']);
+    this.router.navigate(['/projects']);
   }
 
   goToTasks() {
-     this.router.navigate([`/projects/${this.projectId()}/tasks`]);
+    this.router.navigate([`/projects/${this.projectId()}/tasks`]);
   }
 }

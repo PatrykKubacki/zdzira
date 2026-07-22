@@ -1,32 +1,31 @@
 <li>
     @if(isEditMode()) {
-        <div>
-            <input [(ngModel)]="newName"/>
-            <button class="margin-left-button"
-                    (click)="save()">
-                Zapisz
-            </button>
-            <button class="margin-left-button"
-                    (click)="cancel()" >
-                Anuluj
-            </button>
-        </div>
+    <div>
+        <mat-form-field class="row textarea-field">
+            <mat-label>Nazwa projektu </mat-label>
+            <input matInput [(ngModel)]="newName">
+        </mat-form-field>
+
+        <button class="margin-left-button" matButton="filled" (click)="save()">
+            Zapisz
+        </button>
+        <button class="margin-left-button" matButton="outlined" (click)="cancel()">
+            Anuluj
+        </button>
+    </div>
     } @else {
-        <div>
-            <span>{{currentProject()?.name}}</span>
-            <span class="task-count">(Ten projekt ma: {{currentProject()?.tasks?.length}} zadań)</span>
-            <button class="margin-left-button"
-                    (click)="edit()">
-                Edytuj
-            </button> 
-            <button class="margin-left-button"
-                    (click)="details(currentProject()?.id ?? 0)" >
-                Szczegóły
-            </button>
-            <button class="margin-left-button"
-                    (click)="remove()" >
-                    Usuń
-            </button>
-        </div>
+    <div class="project-item">
+        <span>{{currentProject()?.name}}</span>
+        <span class="task-count">(Ten projekt ma: {{currentProject()?.tasks?.length}} zadań)</span>
+        <button class="margin-left-button" matButton="tonal" (click)="edit()">
+            Edytuj
+        </button>
+        <button class="margin-left-button" matButton="tonal" (click)="details(currentProject()?.id ?? 0)">
+            Szczegóły
+        </button>
+        <button class="margin-left-button" matButton="outlined" (click)="remove()">
+            Usuń
+        </button>
+    </div>
     }
 </li>

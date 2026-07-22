@@ -14,20 +14,18 @@ export const routes: Routes = [
         path: 'projects',
         component: ProjectsListPage,
         title: 'Lista projektów',
+        pathMatch: 'full',
     },
     {
         path: 'projects/:id',
         component: ProjectDetailsPage,
         title: 'Szczegóły projektu',
+        pathMatch: 'full',
     },
     {
         path: 'projects/:id/tasks',
         component: TasksListPage,
         title: 'Lista zadań',
+        pathMatch: 'full',
     },
-  //{
-    // path: 'projects/:id/tasks/:taskId',
-    // component: TaskDetailsPage,
-    // title: 'Szczegóły zadania',
-  // },
 ];
